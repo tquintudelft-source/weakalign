@@ -25,7 +25,7 @@ def collate_custom(batch):
 class BatchTensorToVars(object):
     """Convert tensors in dict batch to vars
     """
-    def __init__(self, use_cuda=True):
+    def __init__(self, use_cuda=False):
         self.use_cuda=use_cuda
         
     def __call__(self, batch):

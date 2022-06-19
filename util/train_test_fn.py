@@ -2,7 +2,7 @@ from __future__ import print_function, division
 import torch
 from model.loss import TpsGridRegularityLoss
 
-def train_fun_strong(epoch,model,loss_fn,optimizer,dataloader,pair_generation_tnf,use_cuda=True,log_interval=50):
+def train_fun_strong(epoch,model,loss_fn,optimizer,dataloader,pair_generation_tnf,use_cuda=False,log_interval=50):
     model.train()
     train_loss = 0
     for batch_idx, batch in enumerate(dataloader):
@@ -21,7 +21,7 @@ def train_fun_strong(epoch,model,loss_fn,optimizer,dataloader,pair_generation_tn
     print('Train set: Average loss: {:.4f}'.format(train_loss))
     return train_loss
 
-def test_fun_strong(model,loss_fn,dataloader,pair_generation_tnf,use_cuda=True):
+def test_fun_strong(model,loss_fn,dataloader,pair_generation_tnf,use_cuda=False):
     model.eval()
     test_loss = 0
     for batch_idx, batch in enumerate(dataloader):
@@ -35,7 +35,7 @@ def test_fun_strong(model,loss_fn,dataloader,pair_generation_tnf,use_cuda=True):
     return test_loss
 
 
-def train_fun_weak(epoch,model,loss_fn,optimizer,dataloader,dataloader_neg,batch_tnf,use_cuda=True,log_interval=50,triplet=False,tps_grid_regularity_loss=0):
+def train_fun_weak(epoch,model,loss_fn,optimizer,dataloader,dataloader_neg,batch_tnf,use_cuda=False,log_interval=50,triplet=False,tps_grid_regularity_loss=0):
     tgrl = TpsGridRegularityLoss(use_cuda=use_cuda)
     model.train()
     train_loss = 0
@@ -77,7 +77,7 @@ def train_fun_weak(epoch,model,loss_fn,optimizer,dataloader,dataloader_neg,batch
     return train_loss
 
 
-def test_fun_weak(model,loss_fn,dataloader,dataloader_neg,batch_tnf,use_cuda=True,triplet=False,tps_grid_regularity_loss=0):
+def test_fun_weak(model,loss_fn,dataloader,dataloader_neg,batch_tnf,use_cuda=False,triplet=False,tps_grid_regularity_loss=0):
     model.eval()
     test_loss = 0
     if dataloader_neg is not None: 
